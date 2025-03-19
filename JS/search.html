@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche - CinéVallée</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>CinéVallée</h1>
+        </div>
+        <nav class="navigation">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="search.html">Recherche</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Recherchez un film</h2>
+            <p>Entrez le titre d'un film pour voir les résultats correspondants.</p>
+        </section>
+
+        <section id="search-section" class="movies-section">
+            <div class="search-bar">
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="Rechercher un film..." 
+                    autocomplete="off"
+                >
+                <button id="search-btn" class="btn">Rechercher</button>
+            </div>
+            
+            <div class="movies-container" id="search-results">
+                <!-- Les résultats de recherche s'afficheront ici -->
+            </div>
+
+            <button id="load-more-btn" class="btn">Charger plus</button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 CinéVallée. Tous droits réservés.</p>
+    </footer>
+    
+    <script src="js/search.js"></script>
+</body>
+</html>
