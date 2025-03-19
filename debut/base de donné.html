@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Content</th>
+            <th>Published At</th>
+            <th>Position</th>
+        </tr>
+    </table>
+    
+    <!-- Token for authentication -->
+    token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi5jbGlja2FuZHJ1bi5uZXQvYXBpL2xvZ2luIiwiaWF0IjoxNzM2MTY3ODIxLCJleHAiOjE3MzYxNzE0MjEsIm5iZiI6MTczNjE2NzgyMSwianRpIjoiMEg3NjM2TndPT0tFSWJkYiIsInN1YiI6IjAxamd4dGN4cmc1OTViYW5uajVqeTQ4NDRqIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.d7tZznaR58ezZHk4bdJa12liWfR3lSIYVCs9oNB94L8
+</body>
+<script>
+    const API = 'https://dev.clickandrun.net/api';
+
+    // Login data
+    const data = {
+        email: 'tu_prefere_moi_ou_ta_mere@toiiii.toiiii',
+        password: 'password'
+    };
+
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+
+    async function loginAndGetToken() {
+        let url = API + '/login';
+
+        try {
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                console.error('Network error: ' + response.status);
+                return null;  // Return null if token can't be fetched
+            }
+
+            let responseData = await response.json();
+            console.log('Token:', responseData.access_token.token);
+            return responseData.access_token.token;  // Return token
+        } catch (error) {
+            console.error('Request error:', error);
+            return null;  // Return null on error
+        }
+    }
+
+    async function getPosts(TOKEN) {
+        const postHeaders = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${TOKEN}`  // Use the token in the Authorization header
+        };
+
+        let url = API + '/posts';
+        try {
+            let response = await fetch(url, {
+                method: 'GET',  // GET request doesn't need a body
+                headers: postHeaders
+            });
+
+            if (!response.ok) {
+                console.error('Network error: ' + response.status);
+                return null;  // Stop if there's a network error
+            }
+
+            const responseData = await response.json();
+            console.table('Success:', responseData.data);  // Log the posts data
+            return responseData;  // Return the response data
+        } catch (error) {
+            console.error('Request error:', error);
+            return null;  // Return null on error
+        }
+    }
+
+    // Function to keep retrying until responseData is available
+    async function getDataUntilAvailable() {
+        let TOKEN = await loginAndGetToken();  // Fetch token asynchronously
+
+        if (!TOKEN) {
+            console.error('Token not retrieved, cancelling the request.');
+            return;  // If token is not retrieved, stop the process
+        }
+
+        let responseData = null;
+        while (!responseData) {
+            responseData = await getPosts(TOKEN);  // Fetch posts using the token
+
+            if (!responseData) {
+                console.log('Retrying to fetch posts...');
+                await new Promise(resolve => setTimeout(resolve, 2000));  // Wait 2 seconds before retrying
+            }
+        }
+
+        console.table(responseData.data);  // Final data
+    }
+
+    // Call the function to fetch data repeatedly until it's available
+    getDataUntilAvailable();
+    
+</script>
+</html>

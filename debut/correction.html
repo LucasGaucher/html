@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="'test'"></div>
+
+    <script>
+        const BEARER = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2Rldi5jbGlja2FuZHJ1bi5uZXQvYXBpL2xvZ2luIiwiaWF0IjoxNzM2MTc1MDE5LCJleHAiOjE3MzYxNzg2MTksIm5iZiI6MTczNjE3NTAxOSwianRpIjoiS0U1VTUzQmVGU09KbGw0ZiIsInN1YiI6IjAxamd4dDlxMjh2dzltcHliaDlkMXlyYnh4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.P8gxQ5CS6ioLzUNDFPT158dN1UghvOMyFbHmOJJCjjY';
+
+        const headers = {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + BEARER
+        }
+        
+        async function getData() {
+            try {
+                const response = await fetch('https://dev.clickandrun.net/api/posts', {
+                    method: 'GET',
+                    headers: headers
+                });
+                //console.log('response.data brut', await response)
+                const dataResponse = await response.json();
+                console.table(dataResponse.data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        getData();
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Génération d'images aléatoire
+    <div class="scroll"> début</div>
+</body>
+<script>
+
+function viderCache() {
+    
+
+    console.log("Cache pas vidé !");
+}
+
+
+    const imageLink = 'https://placeholderimage.eu/api/0/250'
+    const cage = document.body
+    console.log(cage)
+    for (let i = 0; i<5;i++){
+        const images = document.createElement('img')
+        images.src = imageLink + `?${Math.random()*1000}`
+        const divusMaximux = document.createElement('div')
+        cage.appendChild(divusMaximux)
+        divusMaximux.appendChild(images)
+        viderCache()
+
+}   
+    window.addEventListener('scroll', (event) => {
+        const images = document.createElement('img')
+        images.src = imageLink + `?${Math.random()*1000}`
+        cage.appendChild(images)
+        cage.appendChild(document.createElement('div'))
+        viderCache()
+    }
+        
+    )
+
+</script>
+</html>

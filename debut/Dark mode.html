@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark mode</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <div class="Wrapper">
+        <button id="Dark_or_not">Switch to dark</button>
+        <p>
+            ceci est du texte dans un paragraphe
+        </p>
+    </div>
+</body>
+<script>
+    let dark_mode = false;
+    const button = document.querySelector("#Dark_or_not");
+    
+    button.addEventListener("click", (event) => {
+        const Wrapper = document.querySelector(".Wrapper"); // Corrected selector
+        
+        if (dark_mode) {
+            button.innerHTML = 'Switch to dark';
+            Wrapper.classList.remove('dark');
+            dark_mode = false;
+        } else {
+            button.innerHTML = 'Go back to the normal';
+            Wrapper.classList.add('dark');
+            dark_mode = true;
+        }
+        console.log(dark_mode);
+    });
+</script>
+</html>

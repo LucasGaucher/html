@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP4</title>
+</head>
+<body>
+    TP4
+</body>
+<script>
+    class Person{
+        constructor(nom, age){
+            this.name = nom
+            this.age = age
+        }
+        introduction(){
+            return `Hi, my name is ${this.name} and I'm ${this.age}`
+        }
+    }
+    let Mon_voisin = new Person('Casserole', 19)
+    console.log(Mon_voisin.introduction())
+
+    class Animal{
+        makeSound(){
+            pass
+        }
+        get_mane(){
+            return this.name
+        }
+        set_name(nom){
+            this.name = nom
+        }
+    }
+    class Dog extends Animal{
+        makeSound(){
+            return 'bark!'}
+    }
+    let toutou = new Dog()
+    toutou.set_name('Marien')
+    console.log(toutou.makeSound(), toutou.get_mane())
+
+    //CHAT G PT
+    // Classe abstraite Shape
+    class Shape {
+    constructor() {
+        if (this.constructor === Shape) {
+        throw new Error("Vous ne pouvez pas instancier une classe abstraite.");
+        }
+    }
+
+    // Méthode abstraite getSurface, qui devra être implémentée par les sous-classes
+    getSurface() {
+        throw new Error("La méthode 'getSurface' doit être implémentée.");
+    }
+    }
+
+    // Classe Circle (hérite de Shape)
+    class Circle extends Shape {
+    constructor(r) {
+        super(); // Appel du constructeur de la classe parent
+        this.r = r; // Rayon du cercle
+    }
+
+    // Implémentation de la méthode getSurface pour Circle
+    getSurface() {
+        return Math.PI * this.r * this.r; // Surface du cercle : π * r²
+    }
+    }
+
+    // Classe Square (hérite de Shape)
+    class Square extends Shape {
+    constructor(l) {
+        super(); // Appel du constructeur de la classe parent
+        this.l = l; // Longueur du côté du carré
+    }
+
+    // Implémentation de la méthode getSurface pour Square
+    getSurface() {
+        return this.l * this.l; // Surface du carré : l²
+    }
+    }
+
+    // Exemple d'utilisation
+
+    // Création d'un cercle avec rayon 5
+    let circle = new Circle(5);
+    console.log("Surface du cercle : ", circle.getSurface()); // Affiche la surface du cercle
+
+    // Création d'un carré avec côté 4
+    let square = new Square(4);
+    console.log("Surface du carré : ", square.getSurface()); // Affiche la surface du carré
+
+    // Tentative d'instancier Shape directement (provoque une erreur)
+    try {
+    let shape = new Shape(); // Cela va échouer
+    } catch (error) {
+    console.log(error.message); // Affiche "Vous ne pouvez pas instancier une classe abstraite."
+    }
+
+        
+</script>
+</html>

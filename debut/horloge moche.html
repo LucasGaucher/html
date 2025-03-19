@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>horloge moche</title>
+</head>
+<body>
+    <p> 00:00:00</p>
+    <
+</body>
+<script>
+    function updateClock() {
+        const now = new Date();
+
+        const seconds = now.getSeconds() - 3; // don't know why???
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+        const placement_heure = document.querySelector('p')
+        placement_heure.innerHTML = `${hours}:${minutes}:${seconds}`
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+</script>
+</html>

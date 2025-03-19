@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Page d'accueil d'un site de location saisonnière.">
+    <title>TP3</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+
+<body>
+    <div class="Wrapper">
+        <p> TP 03 </p>
+    </div>
+</body>
+<script>
+    // ex 1
+    let fruit = ["pomme", "banane", "orange"]
+    fruit.push("mangue")
+    fruit[1]= 'fraise'
+    // ex2
+    function un_er_methode(fruit){
+        for (let i = 0; i < fruit.length; i++){
+            console.log(fruit[i])
+        }
+    }
+    un_er_methode(fruit)
+    function deux_eme_methode(fruit){
+        fruit.forEach(element => console.log(element))
+    } 
+    deux_eme_methode(fruit)
+    //ex 3
+    let nums = [3, 5, 7, 9, 11]
+    let bigNums = []
+    nums.forEach(element => bigNums.push(element*2))
+    somme = [0, 0]
+    nums.forEach(element => somme[0] += element)
+    bigNums.forEach(element => somme[1] += element)
+    console.log(nums, bigNums, 'somme:', somme)
+    // EX 4
+    let students = [{ nom: "Jean", age: 20, note: 5 }, { nom: "Theo", age: 12, note: 19.5 }, { nom: "Contantin", age: 17, note: 3 }, { nom: "lucas", age: 17, note: 12 }, { nom: "Maxime", age: 17, note: 13}]
+    students.forEach(element => console.log(element.nom, element.note))
+    students.forEach(element => {
+        if (element.note>=12){
+            console.log(element)
+        }
+    })
+    let student_name = students.forEach(element => element.nom)
+
+    // Ex 5
+    let supinfoModule = {
+        nom : "1WEBD",
+        professeur : "Mme Martin",
+        students : students,
+        addStudent: function(student) {
+            this.students.push(student)
+        },
+        afficherMoyenne: function() {
+            let moyenne  = this.students.forEach(element => moyenne += element.note) / this.student.length
+            console.log(moyenne)
+        },
+    }
+    // BONNUS
+    let word = ['hello', 'javascript', '12345']
+    function renverser(mot){
+        return mot.split('').reverse().join('')
+    }
+    let revesed_word = [renverser(word[0]), renverser(word[1]), renverser(word[2])]
+    console.log(word, revesed_word)
+    function countVowels(mot){
+        let nb = 0
+        mot.forEach(element => {
+            if ('aeiouyAEIOUY'.includes(element)){
+                nb ++ 
+            }
+        })
+        return nb
+    }
+    let word2 = ['hello', 'javascript', '12345']
+</script>
+
+</html>

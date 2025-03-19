@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="myFrom" action="" method="post" class="form">
+        <input type="text" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Mot de passe">
+        <input type="submit" id="envoi" value="Envoyer">
+        <label>
+            <input type="checkbox" id="showPassword"> Voir le mot de passe
+        </label>
+    </form>
+
+    <script>
+        function ValidateEmail(email) {
+            const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (emailRegex.test(email.value)) {
+                return true;
+            } else {
+                alert("Vous avez entré une adresse email invalide !");
+                return false;
+            }
+        }
+        const button = document.querySelector("#envoi");
+        const passwordField = document.querySelector("#password");
+        const showPasswordCheckbox = document.querySelector("#showPassword");
+
+        showPasswordCheckbox.addEventListener("change", () => {
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";  
+            }
+        });
+
+
+
+        button.addEventListener("click", (event) => {
+            event.preventDefault(); 
+            let email = document.querySelector("#email");
+            let password = document.querySelector("#password");
+
+            if (ValidateEmail(email)) {
+                console.log("C'est bon");
+                
+            }
+        });
+    </script>
+</body>
+</html>

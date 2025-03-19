@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Page d'accueil d'un site de location saisonnière.">
+    <title>e</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Lien vers le fichier CSS -->
+</head>
+
+<body>
+    <div class="Wrapper">
+        
+        <p>Paragraphe</p>
+    </div>
+</body>
+<script>
+    console.log('EX 1')
+    let vartexte = 'Coucou'
+    document.write(vartexte)
+    let var1 = 23
+    let var2 = 46*var1
+    console.log(var2-var1)
+    console.log('EX 2')
+    let sa_reponse = prompt('cc bb comment vas-tu?')
+    console.log(sa_reponse)
+    console.log('EX 3')
+    let tableau = [1,2,3,4]
+    let sum = 0
+    for (let i = 0; i < tableau.length;i++){
+        sum += tableau[i]
+    }
+    console.log(`Première valeur : ${tableau[0]} \nDernière valeur : ${tableau[tableau.length-1]} \nsomme du tableau(${tableau}) est ${sum}`)
+    console.log('EX 4')
+    let x = 4;
+    x++;
+    x -= 1;
+    console.log(x)
+    console.log('EX 5')
+    let x2 = 4;
+    x2 = x2**3;
+    x2 %= 2;
+    console.log(x2)
+    console.log('EX 6')
+    let x3 = '10';
+    x3 += 1;
+    console.log(x3)
+    console.log('EX 7')
+    let age = prompt('Quelle age as-tu?')
+    if (age >= 18){
+        alert("Tu es majeur")
+    }
+    else {
+        alert("Tu es mineur")
+    }
+    console.log('EX 8')
+    if (((age <= 30) && (age >= 20)) || ((age >= 40) && (age <= 50))){
+        alert("Tu es dans la bonne tranche")
+    }
+    else {
+        alert("Tu n'es pas dans la bonne tranche")
+    }
+    console.log('EX 9')
+    let action = ''
+    
+    function verification(action){
+        if (['marcher', 'courir', 'tomber', 'frapper', 'mourir'].includes(action)){
+        console.log(`action ${action} accepter`)
+    }
+        else{
+            console.log(`${action} non reconnus`)
+        }
+    }
+    verification('azerty')
+    verification('marcher')
+    console.log('EX 12')
+    let alphabet = ''
+    for (i = 97; i < 123;i++){
+        alphabet += String.fromCharCode(i)
+    }
+    console.log(alphabet)
+    for (i = 97-32; i < 123-32;i++){
+        alphabet += String.fromCharCode(i)
+    }
+    console.log(alphabet)
+    console.log('EX 13')
+    for (i = 0; i < 11;i++){
+        console.log(i)
+    }
+    for (i = 10; i >= 0;i--){
+        console.log(i)
+    }
+    console.log('EX 14')
+    let prenom = 'Lucas'
+    let somme_assci = 0
+    for (i = 0; i < prenom.length;i++){
+        somme_assci += prenom.charCodeAt(i)
+    }
+    console.log(somme_assci)
+    console.log('EX 15')
+    function fibonatci(n){
+        let n0 = 0
+        let n1 = 1
+        for (let i = 0;  i<n ; i++){
+            n1 = n1 + n0
+            n0 = -(n0 - n1)
+        }
+        console.log(n1)
+        return n1
+    }
+    fibonatci(12)
+    console.log('EX 18');
+    let array = [1, 2, 3, -2, 4, 5, 6, -2];
+    let tableaupositif = [];
+    let somme = 0;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] > 0) {
+            tableaupositif.push(array[i])
+            somme += array[i]
+        }
+    }
+    let moyenne = tableaupositif.length > 0 ? somme / tableaupositif.length : 0
+    console.log(moyenne)
+    console.log('EX 19')
+    array = [4,2,3,6,7,8,9]
+    let max = array[0]
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] > max) {
+            max = array[i]
+        } 
+    }
+    array = []
+    for (let i = 0; i <= max; i++){
+        array.push(i)
+    }
+    console.log(array)
+    
+</script>
+
+</html>

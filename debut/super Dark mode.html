@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .lightMode {
+            background-color:#fff;
+            color:#333;
+        }
+        .darkMode {
+            background-color:#333;
+            color:#fff;
+        }
+    </style>
+</head>
+<body class='lightMode'>
+    <label>Darkmode</label>
+    <input type="checkbox" id="mode" name="mode" value="1"  >Non
+    
+
+
+    <script>
+    window.onload = function () {
+        let cMode = document.querySelector('#mode');
+        cMode.addEventListener('change', changeRadio, false);
+
+        let lMode;
+        
+            setRadio(lMode);
+            updateBody(lMode);
+        
+
+        function setRadio(state) {
+            if (state === 'darkMode') {
+                document.querySelector('#mode').setAttribute('checked','checked');
+            } else {
+                if (document.querySelector('#mode').hasAttribute('checked')) {
+                    document.querySelector('#mode').removeAttribute('checked');
+                }
+            }
+        }
+
+        function changeRadio(e) {
+            let state = e.target.checked;
+            
+            updateBody(state ? 'darkMode' : 'lightMode');
+        }
+
+        function updateBody(mode) {
+            let body = document.querySelector('body');
+            if (mode === 'lightMode') {
+                body.classList.replace('darkMode', 'lightMode');
+            } else {
+                body.classList.replace('lightMode', 'darkMode');
+            }
+        }
+
+        
+    }
+
+
+    </script>
+    
+</body>
+</html>

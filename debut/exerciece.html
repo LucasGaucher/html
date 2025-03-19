@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<p>
+    <div id="bloc1">
+        <p>Je suis un text en <b>gras</b></p>
+        <p>Je suis un text en <em>italic</em></p>
+        <p>je suis en text <sup>en haut</sup></p>
+    </div>
+    <p></p>
+    <div id="bloc2">
+        <p>Je suis un text en <b>gras</b></p>
+        <p>Je suis un text en <em>italic</em></p>
+        <p>je suis en text <sup>en haut</sup></p>
+        <p class="barre">Je suis un texte <s>barré</s></p>
+    </div>
+
+    <h1>consigne</h1>
+    <p>afficher tous les textes en gras en rouge</p>
+    <p>afficher tous les textes en italic en vert</p>
+    <p>afficher tous les textes en haut en bleu</p>
+    <p>Ajouter a la première div un paragraphe avec un texte "je suis un texte barré" avec barré mis en forme</p>
+    <p>Supprimer le paragraphe dont le texte est barré de la seconde div</p>
+
+    <script>
+        const texte_en_gras = document.querySelectorAll('b');
+        console.log(texte_en_gras)
+        for (let i = 0; i < texte_en_gras.length;i++){
+            texte_en_gras[i].style.color = '#F00';
+        }
+        
+        const texte_en_italic = document.querySelectorAll('em');
+        console.log(texte_en_italic)
+        for (let i = 0; i < texte_en_italic.length;i++){
+            texte_en_italic[i].style.color = '#0F0';
+        }
+        
+        const texte_en_haut = document.querySelectorAll('sup');
+        console.log(texte_en_haut)
+        for (let i = 0; i < texte_en_haut.length;i++){
+            texte_en_haut[i].style.color = '#00F';
+        }
+
+        const bloc1 = document.getElementById('bloc1')
+        const newParagraph = document.createElement('p')
+        newParagraph.innerHTML = 'Je suis un texte <s>barré</s>'
+        bloc1.appendChild(newParagraph);
+
+        const texte_barre = document.querySelector('.barre');
+        const bloc2 = document.getElementById('bloc2');
+        bloc2.removeChild(texte_barre); 
+    </script>
+</body>
+
+</html>

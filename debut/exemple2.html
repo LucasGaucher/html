@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD </title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .new-post-btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    
+    .new-post-btn:hover {
+      background-color: #218838;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    
+    table th, table td {
+      border: 1px solid #ddd;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    table th {
+      background-color: #0a4f9a;
+      color: white;
+    }
+    
+    table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    table tr:hover {
+      background-color: #ddd;
+    }
+    
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    
+    .delete-btn:hover {
+      background-color: #c82333;
+    }
+    
+    .pagination {
+      text-align: center;
+    }
+    
+    .pagination a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 5px;
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
+    
+
+
+  </style>
+</head>
+<body>
+<script>
+
+  const baseUrl = "https://dev.clickandrun.net/api/";
+  let token = ""; 
+  let currentPage = 1;
+  
+  
+  document.addEventListener("DOMContentLoaded", async () => {
+    await login("tu_prefere_moi_ou_ta_mere@toiiii.toiiii", "password");
+    await loadPosts(currentPage);
+  
+    document.querySelector(".new-post-btn").addEventListener("click", createNewPost);
+  });
+  
+  
+  async function login(email, password) {
+    const response = await fetch(`${baseUrl}login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+  
+    const data = await response.json();
+    token = data.access_token.token;
+    console.log(token);
+  }
+  
+  
+  async function loadPosts(page) {
+    const response = await fetch(`${baseUrl}posts?page=${page}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  
+    const data = await response.json();
+    renderPosts(data.data);
+    renderPagination(data.meta);
+  }
+  
+  
+  function renderPosts(posts) {
+    const tbody = document.querySelector("#postsTable tbody");
+    tbody.innerHTML = "";
+  
+    posts.forEach((post) => {
+      const row = document.createElement("tr");
+  
+      row.innerHTML = `
+        <td class="handle">☰</td>
+        <td>${post.id}</td>
+        <td><img src="${post.image || 'https://via.placeholder.com/50'}" alt="Image" width="50"></td>
+        <td>${post.title}</td>
+        <td>${post.content || ""}</td>
+        <td>${post.published_at}</td>
+        <td>${post.position}</td>
+        <td><button class="delete-btn" data-id="${post.id}">Delete</button></td>
+      `;
+  
+      tbody.appendChild(row);
+    });
+  
+    document.querySelectorAll(".delete-btn").forEach((btn) =>
+      btn.addEventListener("click", (e) => deletePost(e.target.dataset.id))
+    );
+  
+    initializeTableDragger();
+  }
+  
+  
+  function renderPagination(meta) {
+    const pagination = document.querySelector(".pagination");
+    pagination.innerHTML = "";
+  
+    for (let i = 1; i <= meta.last_page; i++) {
+      const pageLink = document.createElement("a");
+      pageLink.href = "#";
+      pageLink.textContent = i;
+      if (i === meta.current_page) pageLink.style.fontWeight = "bold";
+  
+      pageLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        loadPosts(i);
+      });
+  
+      pagination.appendChild(pageLink);
+    }
+  }
+  
+  
+  async function deletePost(id) {
+    await fetch(`${baseUrl}posts/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    await loadPosts(currentPage);
+  }
+  
+ 
+  async function createNewPost() {
+    const newPost = {
+      title: "Nouveau Post",
+      content: "Contenu",
+      image: null,
+      published_at: date.toISOString().split("T")[0],
+    };
+  
+    await fetch(`${baseUrl}posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newPost),
+    });
+  
+    await loadPosts(currentPage);
+  }
+  
+  
+  function initializeTableDragger() {
+    const table = document.getElementById("postsTable");
+    tableDragger(table, {
+      mode: "row",
+      dragHandler: ".handle",
+      onlyBody: true,
+    });
+  }
+  
+
+</script>
+  <div class="container">
+    <h1>Posts Manager</h1>
+    <button class="new-post-btn">New</button>
+    <table id="postsTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Id</th>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Published at</th>
+          <th>Position</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+    <div class="pagination">
+     
+    </div>
+  </div>
+  <script src="https://unpkg.com/table-dragger"></script>
+  <script src="script.js"></script>
+</body>
+</html>

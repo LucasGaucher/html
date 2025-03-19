@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    1 1 : promesse Écrivez une fonction fetchUserData qui simule une requête réseau pour obtenir des données d'utilisateur. 
+La fonction doit : Retourner une promesse qui se résout après 2 secondes. Résoudre avec l'objet suivant : { id: 1, name: "Alice" }. 
+En cas d'erreur, rejeter la promesse avec un message d'erreur. 
+</body>
+<script>
+    function fetchUserData() {
+        return new Promise((resolve, reject) => {setTimeout(() => {
+            const userData = { id: 1, name: "Alice" };
+            let nb = maths.random()
+            if (nb <= 0.5){resolve(userData);}
+            reject(nb);
+        }, 2000); });
+    }
+    function getUser(){
+        fetchUserData()
+        .then(user => {
+    console.log("Données utilisateur reçues:", user);
+  })
+  .catch(error => {
+    console.error("Erreur lors de la récupération des données:", error);
+  });
+    }
+</script>
+</html>

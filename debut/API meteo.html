@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myChart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+<script>
+    
+  </script>
+<script>
+ 
+    let latitude = '0.19927161203135696'//la temp la plus chaude
+    let longitude = '39.762148691512714'
+    const API = 'https://api.open-meteo.com/v1/forecast?latitude='+latitude+'&longitude='+longitude+'&hourly=temperature_2m&forecast_days=16'
+
+    async function getAPI() {
+        let response = await fetch(API, {
+                method: 'GET',  
+                headers:  {'Content-Type': 'application/json'}
+            });
+        const data = await response.json()
+    
+    return data.hourly
+    }
+    
+    async function creatChart() {
+        const ctx = document.getElementById('myChart');
+        let donne = await getAPI()
+        new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: donne.time,
+        datasets: [{
+          label: '°C',
+          data: donne.temperature_2m,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    }
+    creatChart()
+</script>
+</html>

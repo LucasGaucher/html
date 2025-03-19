@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex 1.2</title>
+</head>
+<body>
+    2 : aync / await Transformez la fonction précédente pour utiliser async/await. 
+Créez une fonction getUser qui appelle fetchUserData et affiche les résultats dans la console, 
+en gérant les erreurs avec un bloc try/catch. 
+</body>
+<script>
+    async function getUser() {
+        try{
+            let userData = await fetchUserData();
+            let superData = await userData.json()
+            console.log(superData)
+        }
+        catch(error){
+            console.error(`une erreure inqtendue s'est produite (${error})`)
+        };
+        function fetchUserData() {
+        return new Promise((resolve, reject) => {setTimeout(() => {
+            const userData = { id: 1, name: "Alice" };
+            let nb = maths.random()
+            if (nb <= 0.5){resolve(userData);}
+            reject(nb);
+        }, 2000); });
+    }
+    function getUser2(){
+        fetchUserData()
+        .then(user => {
+    console.log("Données utilisateur reçues:", user);
+  })
+  .catch(error => {
+    console.error("Erreur lors de la récupération des données:", error);
+  });
+    }
+        
+    }
+</script>
+</html>
